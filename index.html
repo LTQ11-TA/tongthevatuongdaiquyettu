@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cây đa Báo Nhân Dân</title>
+
+
+<!-- =====================================================
+     ƯU TIÊN TẢI MODEL-VIEWER
+====================================================== -->
+
+<link
+    rel="modulepreload"
+    href="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+
+<script
+    type="module"
+    src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js">
+</script>
+
+
+<!-- =====================================================
+     ƯU TIÊN TẢI FILE 3D
+     
+     NẾU FILE CÂY ĐA.GLB NẰM CÙNG THƯ MỤC
+     THÌ GIỮ NGUYÊN DÒNG NÀY.
+
+     NẾU BẠN ĐÃ ĐƯA FILE GLB LÊN WORDPRESS,
+     CÓ THỂ ĐỔI ĐƯỜNG DẪN Ở ĐÂY.
+====================================================== -->
+
+<link
+    rel="preload"
+    href="cây đa.glb"
+    as="fetch"
+    crossorigin>
+
+
+<style>
+
+/* =====================================================
+   RESET
+====================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: transparent !important;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   KHỐI CHÍNH
+====================================================== */
+
+.cayda-container {
+
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0 auto;
+    padding: 0;
+
+    background: transparent !important;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   HAI NÚT
+====================================================== */
+
+.mode-switch {
+
+    position: absolute;
+
+    top: 8px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    z-index: 10;
+
+    height: 34px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 7px;
+
+    margin: 0;
+    padding: 3px;
+
+    background: rgba(255,248,232,0.9);
+
+    border-radius: 12px;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+
+.mode-button {
+
+    border: none;
+
+    background: transparent;
+
+    padding: 5px 17px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #962d28;
+
+    cursor: pointer;
+
+    border-radius: 9px;
+
+    transition: 0.2s ease;
+}
+
+
+.mode-button:hover {
+
+    background: rgba(150,45,40,0.08);
+}
+
+
+.mode-button.active {
+
+    background: #962d28;
+
+    color: white;
+}
+
+
+/* =====================================================
+   NỘI DUNG
+====================================================== */
+
+.content-area {
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent !important;
+
+    overflow: hidden;
+}
+
+
+.tab-content {
+
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent !important;
+}
+
+
+.tab-content.active {
+
+    display: block;
+}
+
+
+/* =====================================================
+   TÌM HIỂU
+====================================================== */
+
+.info-panel {
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background: transparent;
+
+    overflow: hidden;
+}
+
+
+.info-panel img {
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+    padding: 0;
+
+    border: 0;
+    outline: 0;
+
+    box-shadow: none;
+
+    object-fit: contain;
+
+    object-position: center;
+}
+
+
+
+
+/* =====================================================
+   TRẢI NGHIỆM - ẢNH TỔNG THỂ
+====================================================== */
+
+.experience-wrap{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: transparent;
+}
+
+.experience-image{
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    border: 0;
+    outline: 0;
+    box-shadow: none;
+}
+
+@media(max-width:700px){
+    .experience-image{
+        object-fit: contain;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="cayda-container">
+
+
+    <!-- =====================================================
+         HAI NÚT
+    ====================================================== -->
+
+    <div class="mode-switch">
+
+        <button
+            class="mode-button active"
+            data-tab="info">
+
+            HIỆN TẠI
+
+        </button>
+
+
+        <button
+            class="mode-button"
+            data-tab="experience">
+
+            TƯƠNG LAI
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         NỘI DUNG
+    ====================================================== -->
+
+    <div class="content-area">
+
+
+        <!-- =================================================
+             TÌM HIỂU
+        ================================================== -->
+
+        <section
+            id="info"
+            class="tab-content active">
+
+            <div class="info-panel">
+
+                <img
+                    src="tượng đài quyết tử.png"
+                    alt="Cây đa Báo Nhân Dân">
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             TRẢI NGHIỆM
+        ================================================== -->
+
+        <section
+            id="experience"
+            class="tab-content">
+
+            <div class="experience-wrap">
+                <img
+                    class="experience-image"
+                    src="Tổng thể tương lai.png"
+                    alt="Phối cảnh tổng thể Công viên Hòa Bình - biểu tượng Khải Hoàn Môn nhìn từ phố Cầu Gỗ">
+            </div>
+
+        </section>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   CHUYỂN TAB
+===================================================== */
+
+const buttons =
+    document.querySelectorAll(".mode-button");
+
+const tabs =
+    document.querySelectorAll(".tab-content");
+
+buttons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        buttons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        tabs.forEach(tab => {
+            tab.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        const target =
+            button.dataset.tab;
+
+        document
+            .getElementById(target)
+            .classList.add("active");
+    });
+
+});
+
+
+</script>
+
+
+</body>
+
+</html>
